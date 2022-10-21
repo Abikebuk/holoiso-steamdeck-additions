@@ -2,7 +2,6 @@
 
 PACKAGES="\
 xf86-video-amdgpu \
-
 "
 sudo echo ""
 pacman -S "$PACKAGES" --noconfirm
