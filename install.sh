@@ -8,6 +8,7 @@ fi
 if [ $# -eq 0 ] ; then
   pacman -S xf86-video-amdgpu --noconfirm
   rsync -avh ./lib/firmware/* /lib/firmware/
+  echo "Installation complete!"
   exit
 fi
 case $1 in
@@ -22,4 +23,3 @@ case $1 in
 esac
 shift 1
 ./install.sh "$@"
-echo "Installation complete!"
