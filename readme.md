@@ -11,6 +11,13 @@ Adds some fixes for Steam Deck.
 ```shell
 git clone git@github.com:Abikebuk/holoiso-steamdeck-additions.git
 cd holoiso-steamdeck-additions
-sudo ./install.sh
+sudo ./install.sh [params]
 ```
-
+The different parameters that can be used are : 
+* ``all`` : Installs everything
+* ``base`` : Installs protonup & 7zip library
+* ``drivers`` : Installs missing Steam Deck drivers
+* ``theme`` : Installs WhiteSur theme
+* ``ssh`` : Enable ssh 
+* ``kvm`` : Installs base Qemu/KVM with VFIO capabilities
+* ``wallpaper-engine`` : Installs Wallpaper-Engine's KDE plugin. 
