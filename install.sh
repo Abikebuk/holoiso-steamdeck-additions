@@ -26,6 +26,7 @@ case $1 in
   virsh net-autostart default
   virsh net-start default
   cp ./iommuls /usr/bin/
+  usermod -aG libvirt $(whoami)
   ;;
   "wallpaper-engine")
   wget https://ftp.sh.cvut.cz/arch/community/os/x86_64/luajit-2.1.0.beta3.r449.gdad04f17-1-x86_64.pkg.tar.zst
