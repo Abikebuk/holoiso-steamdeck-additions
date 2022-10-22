@@ -6,17 +6,15 @@ if (( $EUID != 0 )); then
 fi
 
 if [ $# -eq 0 ] ; then
-  PACKAGES="xf86-video-amdgpu"
-  pacman -S "$PACKAGES" --noconfirm
+  pacman -S xf86-video-amdgpu --noconfirm
   rsync -avh ./lib/firmware/* /lib/firmware/
   exit
 fi
 case $1 in
   "theme")
-  PACKAGES="kvantum latte-dock"
   git clone https://github.com/vinceliuice/WhiteSur-kde.git
   WhiteSur-kde/install.sh
-  pacman -S "$PACKAGES" --noconfirm
+  pacman -S kvantum latte-dock --noconfirm
   ;;
   "ssh")
   systemctl enable --now sshd.service
