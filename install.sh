@@ -16,7 +16,7 @@ case $1 in
   PACKAGES="kvantum latte-dock"
   git clone https://github.com/vinceliuice/WhiteSur-kde.git
   WhiteSur-kde/install.sh
-  pacman -S "$PACKAGES"
+  pacman -S "$PACKAGES" --noconfirm
   ;;
   "ssh")
   systemctl enable --now sshd.service
