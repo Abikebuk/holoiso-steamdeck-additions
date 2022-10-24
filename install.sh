@@ -14,8 +14,7 @@ case $1 in
     ./install.sh base drivers theme ssh kvm wallpaper-engine
     ;;
   "drivers")
-    pacman -S xf86-video-amdgpu --noconfirm
-    rsync -avh ./lib/firmware/* /lib/firmware/
+    pacman -Rdd linux-firmware && sudo pacman -S linux-firmware-neptune && sudo mkinitcpio -P
     ;;
   "base")
     pacman -S --noconfirm p7zip protonup-qt-bin
@@ -30,11 +29,12 @@ case $1 in
     systemctl enable --now sshd.service
   ;;
   "kvm")
-    pacman -S virt-manager dnsmasq libvirt qemu edk2-ovmf --noconfirm
+    pacman -S --noconfirm virt-manager dnsmasq libvirt qemu edk2-ovmf
+    yay -S --noconfirm linux-vfio-headers --mflag --skipinteg
     systemctl enable --now libvirtd
     virsh net-autostart default
     virsh net-start default
-    cp ./iommuls /usr/bin/
+    cp ./lsiommu /usr/bin/
     usermod -aG libvirt "$(logname)"
     ;;
   "wallpaper-engine")
