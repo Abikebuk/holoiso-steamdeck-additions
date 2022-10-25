@@ -29,32 +29,24 @@ case $1 in
     systemctl enable --now sshd.service
   ;;
   "kvm")
-    pacman -S --noconfirm virt-manager dnsmasq libvirt qemu edk2-ovmf
-    yay -S --noconfirm linux-vfio-headers --mflag --skipinteg
+    # VFIO is WIP...
+    # Basic VMs thing work fine though
+    pacman -S --noconfirm virt-manager dnsmasq libvirt qemu edk2-ovmf socat gnu-netcat
+    yay -S --noconfirm linux-vfio --mflag --skipinteg
     systemctl enable --now libvirtd
     virsh net-autostart default
     virsh net-start default
     cp ./lsiommu /usr/bin/
-    usermod -aG libvirt "$(logname)"
+    usermod -aG libvirt "$(logname)" # doesn't work but is not needed?
     ;;
   "wallpaper-engine")
-    # WGET this package because pgp signature key for this one is epxired on arch repo
+    # WGET this package because pgp signature key for this one is epxired on Holoiso's arch repo
     # Is required by packages used by wallpaper-engine
     wget https://ftp.sh.cvut.cz/arch/community/os/x86_64/luajit-2.1.0.beta3.r449.gdad04f17-1-x86_64.pkg.tar.zst
     pacman -U luajit-2.1.0.beta3.r449.gdad04f17-1-x86_64.pkg.tar.zst --noconfirm
     rm luajit-2.1.0.beta3.r449.gdad04f17-1-x86_64.pkg.tar.zst
     # end of dirty install
-    sudo pacman -S --noconfirm extra-cmake-modules plasma-framework gst-libav base-devel mpv python-websockets qt5-declarative qt5-websockets qt5-webchannel vulkan-headers
-    git clone https://github.com/catsout/wallpaper-engine-kde-plugin.git
-    cd wallpaper-engine-kde-plugin
-    git submodule update --init
-    mkdir build && cd build
-    cmake .. -DUSE_PLASMAPKG=ON
-    make
-    make install_pkg
-    sudo make install
-    cd ../..
-    rm -rf wallpaper-engine-kde-plugin
+    sudo pacman -S --noconfirm plasma5-wallpapers-wallpaper-engine
     ;;
 esac
 shift 1
